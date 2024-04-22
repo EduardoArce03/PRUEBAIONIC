@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
-import FormularioRegistro from '@/components/FormularioRegistro.vue';
-import Lista from '@/components/Lista.vue';
-import Inicio from '../components/Inicio.vue';
-import IngresoDatos from '../components/IngresoDatos.vue';
+import FormularioRegistro from '@/Vista/FormularioRegistro.vue';
+import Lista from '@/Vista/Lista.vue';
+import Inicio from '@/Vista/Inicio.vue';
+import IngresoDatos from '@/Vista/IngresoDatos.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {

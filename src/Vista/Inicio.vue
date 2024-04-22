@@ -18,7 +18,7 @@
 
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
-import { apolloClient } from '@/apollo-client'; // Ajusta la ruta según tu estructura de archivos
+import { apolloClient } from '@/enviroments/apollo-client'; // Ajusta la ruta según tu estructura de archivos
 import { gql } from '@apollo/client/core';
 
 export default defineComponent({

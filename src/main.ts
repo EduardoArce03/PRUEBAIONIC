@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
 import { DefaultApolloClient } from "@vue/apollo-composable"
- import { apolloClient } from "./apollo-client"
+ import { apolloClient } from "./enviroments/apollo-client"
 import { IonicVue } from '@ionic/vue';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';

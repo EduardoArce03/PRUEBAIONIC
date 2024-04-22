@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Encabezado from './components/Encabezado.vue';
+import Encabezado from './Vista/Encabezado.vue';
 
 export default {
   components: {

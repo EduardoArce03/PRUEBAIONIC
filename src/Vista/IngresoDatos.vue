@@ -1,60 +1,47 @@
 <template>
-    
-      <div class="person-crud-container">
-        <!-- Agregar nueva persona -->
-        <div class="add-person-container">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title class="form-title">Agregar Nueva Persona</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <!-- Campos de entrada para el ID y el nombre de la persona -->
-              <ion-item class="form-group">
-                <ion-label position="floating">ID de la persona:</ion-label>
-                <ion-input v-model="newPersonId" type="text" placeholder="Ingrese el ID"></ion-input>
-              </ion-item>
-              <ion-item class="form-group">
-                <ion-label position="floating">Nombre de la persona:</ion-label>
-                <ion-input v-model="newPersonName" type="text" placeholder="Ingrese el nombre"></ion-input>
-              </ion-item>
-              <!-- Botón para agregar persona -->
-              <ion-button @click="agregarPersona" expand="block" class="btn">Agregar Persona</ion-button>
-            </ion-card-content>
-          </ion-card>
+    <div class="person-crud-container">
+      <!-- Agregar nueva persona -->
+      <div class="add-person-container">
+        <h2 class="form-title">Agregar Nueva Persona</h2>
+        <!-- Campos de entrada para el ID y el nombre de la persona -->
+        <div class="form-group">
+          <label for="newPersonId" class="form-label">ID de la persona:</label>
+          <input v-model="newPersonId" id="newPersonId" type="number" class="form-input" placeholder="Ingrese el ID">
+      <!-- Actualizar o eliminar persona -->
+    </div>
+        <div class="form-group">
+          <label for="newPersonName" class="form-label">Nombre de la persona:</label>
+          <input v-model="newPersonName" id="newPersonName" type="text" class="form-input" placeholder="Ingrese el nombre">
         </div>
-    
-        <!-- Actualizar o eliminar persona -->
-        <div class="update-delete-container">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title class="form-title">Actualizar o Eliminar Persona</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <!-- Campo de entrada para el ID de la persona a actualizar o eliminar -->
-              <ion-item class="form-group">
-                <ion-label position="floating">ID de la persona:</ion-label>
-                <ion-input v-model="personIdToUpdate" type="text" placeholder="Ingrese el ID"></ion-input>
-              </ion-item>
-              <!-- Botones para actualizar y eliminar persona -->
-              <div class="button-group">
-                <ion-button @click="actualizarPersona" expand="block" class="btn btn-update">Actualizar Persona</ion-button>
-                <ion-button @click="eliminarPersona" expand="block" class="btn btn-delete">Eliminar Persona</ion-button>
-              </div>
-            </ion-card-content>
-          </ion-card>
+        <!-- Botón para agregar persona -->
+        <button @click="agregarPersona" class="btn">Agregar Persona</button>
+      </div>
+
+      <!-- Actualizar o eliminar persona -->
+      <div class="update-delete-container">
+        <h2 class="form-title">Actualizar o Eliminar Persona</h2>
+        <!-- Campo de entrada para el ID de la persona a actualizar o eliminar -->
+        <div class="form-group">
+          <label for="personIdToUpdate" class="form-label">ID de la persona:</label>
+          <input v-model="personIdToUpdate" id="personIdToUpdate" type="text" class="form-input" placeholder="Ingrese el ID">
+        </div>
+        <!-- Botones para actualizar y eliminar persona -->
+        <div class="button-group">
+          <button @click="actualizarPersona" class="btn btn-update">Actualizar Persona</button>
+          <button @click="eliminarPersona" class="btn btn-delete">Eliminar Persona</button>
         </div>
       </div>
+    </div>
   </template>
-  
-  
+
   <script>
   import { defineComponent, ref } from 'vue';
-  import { apolloClient } from '@/apollo-client'; // Ajusta la ruta según tu estructura de archivos
+  import { apolloClient } from '@/enviroments/apollo-client'; // Ajusta la ruta según tu estructura de archivos
   import { gql } from '@apollo/client/core';
   
   export default defineComponent({
     setup() {
-      const newPersonId = ref('');
+      const newPersonId = ref(0);
       const newPersonName = ref('');
       const personIdToUpdate = ref('');
   
@@ -91,6 +78,7 @@
       // Función para agregar una nueva persona
       const agregarPersona = async () => {
         try {
+            console.log(newPersonId.value)
           await apolloClient.mutate({ 
             mutation: ADD_PERSON_MUTATION,
             variables: { id: parseFloat(newPersonId.value), nombre: newPersonName.value }
@@ -103,6 +91,7 @@
           console.error('Error al agregar persona:', error);
           alert('Error al agregar persona');
         }
+        
       };
   
       // Función para actualizar una persona
@@ -154,9 +143,11 @@
   .person-crud-container {
     max-width: 800px;
     margin: 0 auto;
+    padding: 20px;
   }
   
   .form-title {
+    margin-bottom: 20px;
     font-size: 24px;
     text-align: center;
   }
@@ -165,16 +156,39 @@
     margin-bottom: 15px;
   }
   
+  .form-label {
+    font-size: 16px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
   .btn {
-    margin-top: 15px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }
   
   .btn-update {
-    --ion-background-color: #28a745;
+    background-color: #28a745;
   }
   
   .btn-delete {
-    --ion-background-color: #dc3545;
+    background-color: #dc3545;
+  }
+  
+  .btn:hover {
+    opacity: 0.8;
   }
   </style>
   
