@@ -1,16 +1,19 @@
 <template>
-  <div class="person-list-container">
-    <h2 class="list-title">Lista de Personas</h2>
-    <ul class="person-list">
-      <li v-for="persona in personas" :key="persona.id" class="person-item">
-        <div class="person-info">
-          <span class="person-id">{{ persona.id }}</span>
-          <span class="person-name">{{ persona.nombre }}</span>
-        </div>
-        <button @click="eliminarPersona(persona.id)" class="btn-delete">Eliminar</button>
-      </li>
-    </ul>
-  </div>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="list-title">Lista de Personas</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+
+      <ion-list class="person-list">
+        <ion-item v-for="persona in personas" :key="persona.id" class="person-item">
+          <ion-label class="person-info">
+            <ion-item class="person-id">{{ persona.id }}</ion-item>
+            <ion-item class="person-name">{{ persona.nombre }}</ion-item>
+          </ion-label>
+        </ion-item>
+      </ion-list>
 </template>
 
 <script>
