@@ -12,13 +12,19 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@apollo/client": "^3.9.11",
     "@capacitor/app": "6.0.0",
     "@capacitor/core": "6.0.0",
     "@capacitor/haptics": "6.0.0",
+    "@capacitor/ios": "6.0.0",
     "@capacitor/keyboard": "6.0.0",
     "@capacitor/status-bar": "6.0.0",
     "@ionic/vue": "^7.0.0",
     "@ionic/vue-router": "^7.0.0",
+    "@vue/apollo-composable": "^4.0.2",
+    "@vue/apollo-util": "^4.0.0-beta.6",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6",
     "ionicons": "^7.0.0",
     "vue": "^3.3.0",
     "vue-router": "^4.2.0"
