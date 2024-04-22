@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <h1>Usuarios y sus Publicaciones</h1>
-    <ul v-if="usersWithPosts.length > 0">
-      <li v-for="user in usersWithPosts" :key="user.id">
-        <h2>{{ user.username }}</h2>
-        <ul>
-          <li v-for="post in user.posts" :key="post.id">
-            {{ post.title }}
-          </li>
-        </ul>
+  <div class="person-list-container">
+    <h2 class="list-title">Lista de Personas</h2>
+    <ul class="person-list">
+      <li v-for="persona in personas" :key="persona.id" class="person-item">
+        <div class="person-info">
+          <span class="person-id">{{ persona.id }}</span>
+          <span class="person-name">{{ persona.nombre }}</span>
+        </div>
+        <button @click="eliminarPersona(persona.id)" class="btn-delete">Eliminar</button>
       </li>
     </ul>
-    <p v-else>No hay usuarios con publicaciones disponibles.</p>
   </div>
 </template>
 
@@ -22,33 +20,85 @@ import { gql } from '@apollo/client/core';
 
 export default defineComponent({
   setup() {
-    const usersWithPosts = ref([]);
+    const personas = ref([]);
 
-    const ALL_USERS_AND_POSTS = gql`
-      query AllUsersAndPosts {
-        socials {
-          users {
-            id
-            username
-            posts {
-              id
-              title
-            }
-          }
+    const LISTAR_PERSONAS_QUERY = gql`
+      query ListarPersonas {
+        Personas(order_by: { id: asc }) {
+          id
+          nombre
         }
       }
     `;
 
-    onMounted(async () => {
+    const cargarPersonas = async () => {
       try {
-        const { data } = await apolloClient.query({ query: ALL_USERS_AND_POSTS });
-        usersWithPosts.value = data.socials.users;
+        const { data } = await apolloClient.query({ query: LISTAR_PERSONAS_QUERY });
+        personas.value = data.Personas;
       } catch (error) {
-        console.error('Error fetching users and posts:', error);
+        console.error('Error al cargar personas:', error);
       }
-    });
+    };
 
-    return { usersWithPosts };
+    const eliminarPersona = async (id) => {
+      try {
+        // Lógica para eliminar persona
+      } catch (error) {
+        console.error('Error al eliminar persona:', error);
+      }
+    };
+
+    onMounted(cargarPersonas);
+
+    return { personas, eliminarPersona };
   },
 });
 </script>
+
+<style scoped>
+.person-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.list-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.person-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.person-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.person-info {
+  flex: 1;
+}
+
+.person-id {
+  font-weight: bold;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background-color: #bd2130;
+}
+</style>

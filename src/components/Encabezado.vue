@@ -5,6 +5,7 @@
             <ion-list><router-link to="/inicio">Inicio</router-link></ion-list>
             <ion-list><router-link to="/registro">Registro</router-link></ion-list>
             <ion-list><router-link to ="/lista">Lista de Registros</router-link></ion-list>
+            <ion-list><router-link to="/ingresion">Ingreso Personas</router-link></ion-list>
         </ul>
       </ion-navigation>
     </ion-header>

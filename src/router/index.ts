@@ -4,6 +4,7 @@ import TabsPage from '../views/TabsPage.vue'
 import FormularioRegistro from '@/components/FormularioRegistro.vue';
 import Lista from '@/components/Lista.vue';
 import Inicio from '../components/Inicio.vue';
+import IngresoDatos from '../components/IngresoDatos.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,6 +18,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/inicio',
     component: Inicio
+  },
+  {
+    path: '/ingresion',
+    component: IngresoDatos
   }
   
 ]
