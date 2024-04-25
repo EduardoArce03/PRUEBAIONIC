@@ -23,12 +23,6 @@
       <input type="text" id="nuevoNombre" v-model="nuevoNombre">
       <button type="submit">Actualizar Persona</button>
     </form>
-    <h2>Eliminar Persona</h2>
-    <form @submit.prevent="submitDelete">
-      <label for="idEliminar">ID a Eliminar</label>
-      <input type="text" id="idEliminar">
-      <button type="submit">Eliminar</button>
-    </form>
   </div>
 </template>
 
