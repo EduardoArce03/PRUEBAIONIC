@@ -13,18 +13,6 @@ const routes: Array<RouteRecordRaw> = [
     component: FormularioRegistro
   },
   {
-    path: '/lista',
-    component: Lista
-  },
-  {
-    path: '/inicio',
-    component: Inicio
-  },
-  {
-    path: '/ingresion',
-    component: IngresoDatos
-  },
-  {
     path: '/creacion',
     component: ExploreContainer
   },

@@ -2,27 +2,22 @@
   <div>
     <h2>Crear Persona</h2>
     <form @submit.prevent="submitForm">
-      <label for="id">Id:</label>
+      <ion-label for="id">Id:</ion-label>
       <input type="text" id="id" v-model="id">
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" v-model="nombre">
-      <button type="submit">Crear Persona</button>
+      <ion-label for="nombre">Nombre:</ion-label>
+      <input type="text" id="nombre" v-model="nombre"></input>
+      <ion-button type="submit">Crear Persona</ion-button>
     </form>
-
-    <div v-if="personaCreada">
-      <h2>Persona Creada</h2>
-      <p>ID: {{ personaCreada.id }}</p>
-      <p>Nombre: {{ personaCreada.nombre }}</p>
-    </div>
 
     <h2>Actualizar Persona</h2>
     <form @submit.prevent="submitUpdate">
-      <label for="idActualizar">ID de la persona a actualizar:</label>
-      <input type="text" id="idActualizar" v-model="idActualizar">
-      <label for="nuevoNombre">Nuevo nombre:</label>
-      <input type="text" id="nuevoNombre" v-model="nuevoNombre">
-      <button type="submit">Actualizar Persona</button>
-    </form>
+  <ion-label for="idActualizar">ID de la persona a actualizar:</ion-label>
+  <input label="Number input" type="number" placeholder="000" id="idActualizar" v-model="idActualizar" required>
+  <ion-label for="nuevoNombre">Nuevo nombre:</ion-label>
+  <input type="text" id="nuevoNombre" v-model="nuevoNombre">
+  <ion-button type="submit">Actualizar Persona</ion-button>
+</form>
+
   </div>
 </template>
 
@@ -54,28 +49,20 @@ export default {
     };
 
     const submitUpdate = async () => {
-      try {
-        await actualizarPersona({id: id.value, nombre: nuevoNombre.value});
-        console.log('Éxito al actualizar persona');
-      } catch (error) {
-        console.error('Error al actualizar persona:', error);
-        alert('Error al actualizar persona');
-      }
-    };
+    try {
+      await actualizarPersona({id: idActualizar.value, nombre: nuevoNombre.value});
+      console.log('Éxito al actualizar persona');
+      alert('operacion con exito')
+  } catch (error) {
+    console.error('Error al actualizar persona:', error);
+    alert('Error al actualizar persona');
+  }
+};
 
-    const submitDelete = async () => {
-      try {
-        await eliminarPersona({id:idEliminar.value});
-        console.log('Éxito al eliminar persona');
-      } catch (error) {
-        console.error('Error al eliminar persona:', error);
-        alert('Error al actualizar persona');
-      }
-    };
+return { id, nombre, idActualizar, nuevoNombre, personaCreada, submitForm, submitUpdate };
 
-    return { id, nombre, idActualizar, nuevoNombre, personaCreada, submitForm, submitUpdate, submitDelete };
-  },
+
+ },
 }
 </script>
-
 

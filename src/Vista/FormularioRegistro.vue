@@ -11,7 +11,7 @@
           <h3>{{ persona.nombre }}</h3>
           <p>{{ persona.id }}</p>
         </ion-label>
-        <button @click="submitDelete(persona.id)">Eliminar</button>
+        <ion-button @click="submitDelete(persona.id)">Eliminar</ion-button>
           <ion-icon name="refresh"></ion-icon>
       </ion-item>
     </ion-list>
@@ -51,3 +51,8 @@ export default {
 }
 </script>
 
+<style scoped>
+  ion-button{
+    background-color: red;
+  }
+</style>
