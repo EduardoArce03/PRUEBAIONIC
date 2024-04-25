@@ -5,6 +5,7 @@ import FormularioRegistro from '@/Vista/FormularioRegistro.vue';
 import Lista from '@/Vista/Lista.vue';
 import Inicio from '@/Vista/Inicio.vue';
 import IngresoDatos from '@/Vista/IngresoDatos.vue';
+import ExploreContainer from '@/Vista/ExploreContainer.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,8 +23,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/ingresion',
     component: IngresoDatos
-  }
-  
+  },
+  {
+    path: '/creacion',
+    component: ExploreContainer
+  },
 ]
 
 const router = createRouter({
