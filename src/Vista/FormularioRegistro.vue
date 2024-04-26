@@ -1,18 +1,18 @@
 <template>
   <ion-page>
     <ion-content>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Listado de Personas</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-list>
-      <ion-item v-for="persona in personas" :key="persona.id">
-        <ion-label>{{ persona.nombre }} - {{ persona.id }}</ion-label>
-        <ion-button @click="submitDelete(persona.id)">Eliminar</ion-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Listado de Personas</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-list>
+        <ion-item v-for="persona in personas" :key="persona.id">
+          <ion-label>{{ persona.nombre }} - {{ persona.id }}</ion-label>
+          <ion-button @click="submitDelete(persona.id)">Eliminar</ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
   </ion-page>
 </template>
 
@@ -24,33 +24,47 @@ import Persona from '@/Modelo/Persona'; // Importa la clase Persona
 
 const personas = ref<Persona[]>([]); // Usa Persona como tipo del array
 
-  const submitDelete = async (id: number | undefined) => {
+const submitDelete = async (id: number | undefined) => {
   try {
-    await eliminarPersona({ id });
-    console.log('Éxito al eliminar persona');
     const alert = await alertController.create({
-      header: 'Éxito al eliminar persona',
-      buttons: [{
-        text: 'Ok',
-        handler: () => {
-          reloadPageIfNeeded();
+      header: 'Eliminar persona',
+      message: '¿Estás seguro de que deseas eliminar esta persona?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Operación de eliminación cancelada');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: async () => {
+            try {
+              await eliminarPersona({ id });
+              console.log('Éxito al eliminar persona');
+              reloadPageIfNeeded(); // Supongo que esta función recarga la página si es necesario
+            } catch (error) {
+              console.error('Error al eliminar persona:', error);
+              const alertError = await alertController.create({
+                header: 'Error al eliminar persona',
+                buttons: ['Ok'],
+              });
+              await alertError.present();
+            }
+          }
         }
-      }],
+      ],
     });
     await alert.present();
   } catch (error) {
-    console.error('Error al eliminar persona:', error);
-    const alert = await alertController.create({
-      header: 'Error al eliminar persona',
-      buttons: ['Ok'],
-    });
-    await alert.present();
+    console.error('Error al mostrar la alerta:', error);
   }
 };
 
 // Función para recargar la página si se establece la variable shouldReloadPage a true
 const reloadPageIfNeeded = () => {
-    window.location.reload();
+  window.location.reload();
 };
 
 onMounted(async () => {
@@ -64,12 +78,14 @@ onMounted(async () => {
 ion-title {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem; /* Espacio inferior */
+  margin-bottom: 1rem;
+  /* Espacio inferior */
 }
 
 /* Estilo para los items de la lista */
 ion-item {
-  border-bottom: 1px solid #ccc; /* Línea separadora */
+  border-bottom: 1px solid #ccc;
+  /* Línea separadora */
 }
 
 /* Estilo para las etiquetas de nombre e ID */
@@ -80,8 +96,9 @@ ion-label {
 /* Estilo para los botones de eliminar */
 ion-button {
   font-size: 1rem;
-  padding: 0.5rem 1rem; /* Espaciado interno */
-  margin-left: auto; /* Alinear a la derecha */
+  padding: 0.5rem 1rem;
+  /* Espaciado interno */
+  margin-left: auto;
+  /* Alinear a la derecha */
 }
-
 </style>
