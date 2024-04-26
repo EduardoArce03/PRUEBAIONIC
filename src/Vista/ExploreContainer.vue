@@ -8,7 +8,7 @@
       <form @submit.prevent="submitForm">
         <ion-item>
           <ion-label position="floating">ID:</ion-label>
-          <ion-input v-model="id" type="text"></ion-input>
+          <ion-input @input="buscarPersona" v-model="id" type="text"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Nombre:</ion-label>
@@ -17,6 +17,15 @@
         <ion-button type="submit" expand="full">Crear Persona</ion-button>
       </form>
       <!-- Mensaje de persona creada -->
+      <ion-card v-if="personaCreada || personaEncontrada">
+        <ion-card-header>
+          <ion-card-title>Persona Encontrada</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>ID: {{ personaEncontrada.id }}
+            Nombre: {{ personaEncontrada.nombre }}</ion-label>
+        </ion-card-content>
+      </ion-card>
       <ion-card v-if="personaCreada">
         <ion-card-header>
           <ion-card-title>Persona Creada</ion-card-title>
@@ -33,11 +42,30 @@
 <script setup lang="ts">
 import { IonPage, IonContent, IonToolbar, IonTitle, IonCard, IonButton, IonItem, IonLabel, IonInput, IonCardContent, IonCardHeader, IonCardTitle, alertController } from '@ionic/vue';
 import { ref } from 'vue';
-import { insertarPersona } from '@/Controlador/ControladorPersona';
+import { insertarPersona, obtenerPersonaPorObjeto } from '@/Controlador/ControladorPersona';
 
 const id = ref('');
 const nombre = ref('');
 const personaCreada = ref<any>(null);
+const personaEncontrada = ref<any>(null);
+
+const buscarPersona = async () => {
+  try {
+    // Verificar que el ID no esté vacío
+    if (id.value !== '') {
+      console.log(id.value);
+      // Cargar la persona por su ID
+      const personaNue = await obtenerPersonaPorObjeto({ id: Number(id.value)});
+      // Asignar la persona encontrada a la variable personaEncontrada
+      personaEncontrada.value = personaNue.length > 0 ? personaNue[0] : null;
+    } else {
+      // Si el ID está vacío, asignar null a personaEncontrada
+      personaEncontrada.value = null;
+    }
+  } catch (error) {
+    console.error('Error al buscar persona:', error);
+  }
+};
 
 const submitForm = async () => {
   try {
@@ -46,6 +74,7 @@ const submitForm = async () => {
     nombre.value = '';
     console.log('Persona creada exitosamente:', nuevaPersona);
     personaCreada.value = nuevaPersona;
+    personaEncontrada.value = null;
     const alert = await alertController.create({
       header: 'Éxito al crear una nueva persona',
       buttons: [{
@@ -61,6 +90,7 @@ const submitForm = async () => {
         text: 'Ok',
       }],
     });
+    await alert.present();
   }
 };
 </script>
