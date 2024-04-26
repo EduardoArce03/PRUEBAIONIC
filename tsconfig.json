@@ -11,7 +11,9 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "noEmit": true,
+    "allowJs": true, // Permitir la importación de archivos JavaScript
+    "checkJs": true,
+    "noEmit": false,
     "paths": {
       "@/*": ["./src/*"]
     }

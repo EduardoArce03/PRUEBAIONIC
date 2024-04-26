@@ -2,7 +2,6 @@ import { apolloClient } from '@/enviroments/apollo-client';
 import { LISTAR_PERSONAS_QUERY } from '@/gqr/querys';
 import { ADD_PERSON_MUTATION, UPDATE_PERSON_MUTATION, DELETE_PERSON_MUTATION } from '@/gqr/mutations';
 import  Persona  from '@/Modelo/Persona'; // Importa el modelo de Persona
-import { gql } from '@apollo/client/core';
 
 export const cargarPersonas = async () => {
     try {
