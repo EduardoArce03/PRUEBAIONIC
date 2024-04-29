@@ -4,7 +4,7 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/app/registro'
+    redirect: '/app/login'
   },
   {
     path: '/app/',
@@ -12,11 +12,11 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/app/registro'
+        redirect: '/app/login'
       },
       {
-        path: 'registro',
-        component: () => import('@/Vista/FormularioRegistro.vue')
+        path: 'login',
+        component: () => import('@/Vista/login.vue')
       },
       {
         path: 'creacion',
