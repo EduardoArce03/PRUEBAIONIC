@@ -38,18 +38,13 @@
         <ion-card-content class="ion-padding">
           <ion-label>Nombre: {{ persona.nombre }}</ion-label>
           <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-            <ion-fab-button size="small" color="dark">
-              <ion-icon :icon="optionsSharp"></ion-icon>
+            <ion-fab-button size="small" @click="submitDelete(persona.id)" color="danger">
+              <ion-icon :icon="trashSharp"></ion-icon>
             </ion-fab-button>
-            <ion-fab-list side="start">
-              <ion-fab-button @click="submitDelete(persona.id)" color="danger">
-                <ion-icon :icon="trashSharp"></ion-icon>
-              </ion-fab-button>
-              <ion-fab-button id="open-modal" expand="block" @click="submitUpdate(persona.id, persona.nombre)"
-                color="warning">
-                <ion-icon :icon="pencilSharp"></ion-icon>
-              </ion-fab-button>
-            </ion-fab-list>
+            <ion-fab-button size="small" id="open-modal" expand="block" @click="submitUpdate(persona.id, persona.nombre)"
+              color="warning">
+              <ion-icon :icon="pencilSharp"></ion-icon>
+            </ion-fab-button>
           </ion-fab>
         </ion-card-content>
       </ion-card>
