@@ -1,16 +1,9 @@
 <template>
-  <div>
-    <Encabezado />
-    <router-view />
-  </div>
+  <ion-app>
+    <ion-router-outlet />
+  </ion-app>
 </template>
 
-<script>
-import Encabezado from './Vista/Encabezado.vue';
-
-export default {
-  components: {
-    Encabezado
-  }
-}
+<script setup lang="ts">
+import { IonApp, IonRouterOutlet } from '@ionic/vue';
 </script>

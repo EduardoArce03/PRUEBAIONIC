@@ -1,21 +1,24 @@
 <template>
-    <ion-header>
-      <ion-navigation>
-        <ul>
-            <ion-list><router-link to="/registro">Registro</router-link></ion-list>
-            <ion-list><router-link to="/creacion">Creacion</router-link></ion-list>
-        </ul>
-      </ion-navigation>
-    </ion-header>
-  </template>
+  <ion-page>
+    <ion-tabs>
+      <ion-router-outlet></ion-router-outlet>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="login" href="/app/login">
+          <ion-label>Log In</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="creacion" href="/app/creacion">
+          <ion-label>Crear</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="welcome" href="/app/welcome">
+          <ion-label>Welcome</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-page>
+</template>
   
-  <script>
-  export default {
-    // Puedes agregar métodos o datos si es necesario
-  }
-  </script>
-  
-  <style scoped>
-  /* Estilos para el encabezado si es necesario */
-  </style>
+<script setup lang="ts">
+import { IonPage, IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonLabel } from '@ionic/vue';
+</script>
+
   

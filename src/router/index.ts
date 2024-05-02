@@ -1,21 +1,33 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import TabsPage from '../views/TabsPage.vue'
-import FormularioRegistro from '@/Vista/FormularioRegistro.vue';
-import Lista from '@/Vista/Lista.vue';
-import Inicio from '@/Vista/Inicio.vue';
-import IngresoDatos from '@/Vista/IngresoDatos.vue';
-import ExploreContainer from '@/Vista/ExploreContainer.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/registro',
-    component: FormularioRegistro
+    path: '/',
+    redirect: '/app/login'
   },
   {
-    path: '/creacion',
-    component: ExploreContainer
-  },
+    path: '/app/',
+    component: () => import('@/Vista/Encabezado.vue'),
+    children: [
+      {
+        path: '',
+        redirect: '/app/login'
+      },
+      {
+        path: 'login',
+        component: () => import('@/Vista/login.vue')
+      },
+      {
+        path: 'creacion',
+        component: () => import('@/Vista/ExploreContainer.vue')
+      },
+      {
+        path: 'welcome',
+        component: () => import('@/Vista/welcome.vue')
+      }
+    ]
+  }
 ]
 
 const router = createRouter({

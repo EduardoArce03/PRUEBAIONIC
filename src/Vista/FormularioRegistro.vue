@@ -1,58 +1,104 @@
 <template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Listado de Personas</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-list>
-      <ion-item v-for="persona in personas" :key="persona.id">
-        <ion-label>
-          <h3>{{ persona.nombre }}</h3>
-          <p>{{ persona.id }}</p>
-        </ion-label>
-        <ion-button @click="submitDelete(persona.id)">Eliminar</ion-button>
-          <ion-icon name="refresh"></ion-icon>
-      </ion-item>
-    </ion-list>
+  <ion-page>
+    <ion-content>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Listado de Personas</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-list>
+        <ion-item v-for="persona in personas" :key="persona.id">
+          <ion-label>{{ persona.nombre }} - {{ persona.id }}</ion-label>
+          <ion-button @click="submitDelete(persona.id)">Eliminar</ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-page>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonButton, IonItem, IonLabel, IonList, alertController } from '@ionic/vue';
 import { ref, onMounted } from 'vue';
-import { cargarPersonas, eliminarPersona } from '@/Controlador/ControladorPersona'; // Importa las funciones necesarias
-import { refresh } from 'ionicons/icons';
+import { cargarPersonas, eliminarPersona } from '@/Controlador/ControladorPersona';
+import Persona from '@/Modelo/Persona'; // Importa la clase Persona
 
-export default {
-  setup() {
-    const personas = ref([]);
-    const id = ref(null);
-    const nuevoNombre = ref(null);
+const personas = ref<Persona[]>([]); // Usa Persona como tipo del array
 
-    // Función para enviar la actualización de la persona
-    const submitDelete = async (id ) => {
-      try {
-        await eliminarPersona({id:id});
-        console.log('Éxito al eliminar persona');
-        alert('exito al eliminar')
-        window.location.reload();
-      } catch (error) {
-        console.error('Error al eliminar persona:', error);
-        alert('Error al eliminar persona');
-      }
-    };
-
-    // Cargar las personas cuando el componente se monta
-    onMounted(async () => {
-      personas.value = await cargarPersonas();
+const submitDelete = async (id: number | undefined) => {
+  try {
+    const alert = await alertController.create({
+      header: 'Eliminar persona',
+      message: '¿Estás seguro de que deseas eliminar esta persona?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Operación de eliminación cancelada');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: async () => {
+            try {
+              await eliminarPersona({ id });
+              console.log('Éxito al eliminar persona');
+              reloadPageIfNeeded(); // Supongo que esta función recarga la página si es necesario
+            } catch (error) {
+              console.error('Error al eliminar persona:', error);
+              const alertError = await alertController.create({
+                header: 'Error al eliminar persona',
+                buttons: ['Ok'],
+              });
+              await alertError.present();
+            }
+          }
+        }
+      ],
     });
+    await alert.present();
+  } catch (error) {
+    console.error('Error al mostrar la alerta:', error);
+  }
+};
 
-    return { personas, submitDelete, id, nuevoNombre };
-  },
-}
+// Función para recargar la página si se establece la variable shouldReloadPage a true
+const reloadPageIfNeeded = () => {
+  window.location.reload();
+};
+
+onMounted(async () => {
+  personas.value = await cargarPersonas();
+});
+
 </script>
 
-<style scoped>
-  ion-button{
-    background-color: red;
-  }
+<style>
+/* Estilo para el título */
+ion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  /* Espacio inferior */
+}
+
+/* Estilo para los items de la lista */
+ion-item {
+  border-bottom: 1px solid #ccc;
+  /* Línea separadora */
+}
+
+/* Estilo para las etiquetas de nombre e ID */
+ion-label {
+  font-size: 1.2rem;
+}
+
+/* Estilo para los botones de eliminar */
+ion-button {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  /* Espaciado interno */
+  margin-left: auto;
+  /* Alinear a la derecha */
+}
 </style>
