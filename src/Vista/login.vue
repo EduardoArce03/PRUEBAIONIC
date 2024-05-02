@@ -1,11 +1,12 @@
 <template>
-    <ion-page>
+  <ion-page>
+    <ion-card>
       <ion-header>
-        <ion-toolbar color="medium">
-          <ion-title class="title">Iniciar Sesión</ion-title>
-        </ion-toolbar>
+        <ion-header>
+          <ion-card-title class="title">Iniciar Sesión</ion-card-title>
+        </ion-header>
       </ion-header>
-      <ion-content class="ion-padding">
+      <ion-card-content class="ion-padding">
         <form @submit.prevent="login" class="login-form">
           <ion-item class="form-item">
             <ion-label position="floating" class="label">Email</ion-label>
@@ -17,14 +18,16 @@
           </ion-item>
           <ion-button expand="full" type="submit" color="medium" class="login-button">Iniciar Sesión</ion-button>
         </form>
-        <ion-button expand="full" fill="clear" color="medium" @click="forgotPassword">¿Olvidaste tu contraseña?</ion-button>
-      </ion-content>
-    </ion-page>
-  </template>
-  
-  
+        <ion-button expand="full" fill="clear" color="medium" @click="forgotPassword">¿Olvidaste tu
+          contraseña?</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-page>
+</template>
+
+
 <script lang="ts" setup>
-import {  IonButton, IonItem, IonLabel, IonInput, IonPage, IonToolbar, IonTitle, IonHeader, IonContent } from '@ionic/vue';
+import { IonButton, IonItem, IonLabel, IonInput, IonPage, IonToolbar, IonTitle, IonHeader, IonContent, IonCardContent, IonCard, IonCardTitle } from '@ionic/vue';
 import { ref } from 'vue';
 
 const email = ref('');
@@ -44,7 +47,7 @@ const login = () => {
   }
 };
 
-const forgotPassword = () => {};
+const forgotPassword = () => { };
 </script>
 
 <style scoped>
@@ -71,7 +74,7 @@ const forgotPassword = () => {};
 }
 
 .input {
-   padding: 12px;
+  padding: 12px;
   width: 100%;
   box-sizing: border-box;
   font-size: 14px;

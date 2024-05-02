@@ -9,6 +9,9 @@
         <ion-tab-button tab="creacion" href="/app/creacion">
           <ion-label>Crear</ion-label>
         </ion-tab-button>
+        <ion-tab-button tab="welcome" href="/app/welcome">
+          <ion-label>Welcome</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>

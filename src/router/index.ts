@@ -21,6 +21,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'creacion',
         component: () => import('@/Vista/ExploreContainer.vue')
+      },
+      {
+        path: 'welcome',
+        component: () => import('@/Vista/welcome.vue')
       }
     ]
   }
